@@ -10,9 +10,6 @@
 		"ms-vscode.cpptools",
 		"ms-python.python",
 		"ajshort.msg",
-		"twxs.cmake",
-		"redhat.vscode-xml",
-		"actboy168.tasks",
-		"brpaz.file-templates"
+		"twxs.cmake"
     ]
 }

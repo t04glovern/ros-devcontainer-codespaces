@@ -1,45 +1,25 @@
 version: '3'
 services:
-  xserver:
-    image: devrt/xserver
-    ipc: host
-    security_opt:
-    - seccomp:unconfined
-    ports:
-    - "3000:80"
-    healthcheck:
-      test: ["CMD-SHELL", "test -e /tmp/.X11-unix/X0"]
-      interval: "1s"
-      retries: 20
-  simulator:
-    image: devrt/simulator-empty
-    ipc: host
-    security_opt:
-    - seccomp:unconfined
-    environment:
-    - DISPLAY=:0
-    volumes_from:
-    - xserver
-    depends_on:
-    - xserver
   workspace:
-    image: devrt/ros-devcontainer-vscode:melodic-desktop
+    build:
+      context: .
+      dockerfile: Dockerfile-melodic
     ipc: host
     security_opt:
     - seccomp:unconfined
-    ports:
-    - "3001:3000"
-    - "3002:8888"
     volumes:
     - workspace:/workspace
-    - ~/.gitconfig:/home/developer/.gitconfig
     environment:
     - DISPLAY=:0
     - ROS_MASTER_URI=http://simulator:11311/
-    volumes_from:
-    - xserver
-    - simulator
-    depends_on:
-    - xserver
+  simulator:
+    build:
+      context: .
+      dockerfile: Dockerfile-simulator
+    ipc: host
+    security_opt:
+    - seccomp:unconfined
+    environment:
+    - DISPLAY=:0
 volumes:
   workspace:
