@@ -1,9 +1,10 @@
 version: '3'
 services:
   workspace:
-    build:
-      context: .
-      dockerfile: Dockerfile-melodic
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile-melodic
+    image: devrt/ros-devcontainer-vscode:melodic-desktop
     ipc: host
     security_opt:
     - seccomp:unconfined
@@ -13,9 +14,10 @@ services:
     - DISPLAY=:0
     - ROS_MASTER_URI=http://simulator:11311/
   simulator:
-    build:
-      context: .
-      dockerfile: Dockerfile-simulator
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile-simulator
+    image: devrt/simulator-empty
     ipc: host
     security_opt:
     - seccomp:unconfined
